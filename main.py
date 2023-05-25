@@ -1,4 +1,5 @@
-from datasets import load_dataset, Dataset
+from src.components.data_ingestion import DataIngestion
 
-dataset = load_dataset("conv_ai")
-print(dataset['train'][0])
+if __name__ == "__main__":
+    obj = DataIngestion()
+    print(obj.initiate_data_ingestion())

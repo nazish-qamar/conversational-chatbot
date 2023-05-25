@@ -1,0 +1,87 @@
+{
+  "builder_name": "conv_ai_2",
+  "citation": "@misc{dinan2019second,\n      title={The Second Conversational Intelligence Challenge (ConvAI2)},\n      author={Emily Dinan and Varvara Logacheva and Valentin Malykh and Alexander Miller and Kurt Shuster and Jack Urbanek and Douwe Kiela and Arthur Szlam and Iulian Serban and Ryan Lowe and Shrimai Prabhumoye and Alan W Black and Alexander Rudnicky and Jason Williams and Joelle Pineau and Mikhail Burtsev and Jason Weston},\n      year={2019},\n      eprint={1902.00098},\n      archivePrefix={arXiv},\n      primaryClass={cs.AI}\n}\n",
+  "config_name": "conv_ai_2",
+  "dataset_size": 8403757,
+  "description": "ConvAI is a dataset of human-to-bot conversations labelled for quality. This data can be used to train a metric for evaluating dialogue systems. Moreover, it can be used in the development of chatbots themselves: it contains the information on the quality of utterances and entire dialogues, that can guide a dialogue system in search of better answers.\n",
+  "download_checksums": {
+    "https://github.com/DeepPavlov/convai/raw/master/2018/data/summer_wild_evaluation_dialogs.json": {
+      "num_bytes": 6636788,
+      "checksum": null
+    }
+  },
+  "download_size": 6636788,
+  "features": {
+    "id": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "dialog_id": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "dialog": [
+      {
+        "id": {
+          "dtype": "int32",
+          "_type": "Value"
+        },
+        "sender": {
+          "dtype": "string",
+          "_type": "Value"
+        },
+        "text": {
+          "dtype": "string",
+          "_type": "Value"
+        },
+        "sender_class": {
+          "dtype": "string",
+          "_type": "Value"
+        }
+      }
+    ],
+    "bot_profile": {
+      "feature": [
+        {
+          "dtype": "string",
+          "_type": "Value"
+        }
+      ],
+      "_type": "Sequence"
+    },
+    "user_profile": {
+      "feature": [
+        {
+          "dtype": "string",
+          "_type": "Value"
+        }
+      ],
+      "_type": "Sequence"
+    },
+    "eval_score": {
+      "dtype": "int32",
+      "_type": "Value"
+    },
+    "profile_match": {
+      "dtype": "int32",
+      "_type": "Value"
+    }
+  },
+  "homepage": "https://github.com/DeepPavlov/convai/tree/master/2018",
+  "license": "",
+  "size_in_bytes": 15040545,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 8403757,
+      "num_examples": 3495,
+      "dataset_name": "conv_ai_2"
+    }
+  },
+  "version": {
+    "version_str": "1.0.0",
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  }
+}

@@ -1,15 +1,15 @@
 import os
 import sys
-from src.exception import CustomException
-from src.logger import logging
 import pandas as pd
-
+from datasets import load_dataset
 from dataclasses import dataclass
 
+from src.exception import CustomException
+from src.logger import logging
 
 @dataclass
 class DataIngestionConfig:
-    raw_data_path: str = os.path.join('artifacts', "data.csv")
+    raw_data_path: str = os.path.join('artifacts', "data")
 
 
 class DataIngestion:
@@ -17,28 +17,19 @@ class DataIngestion:
         self.ingestion_config = DataIngestionConfig()
 
     def initiate_data_ingestion(self):
-        logging.info("Entered the data ingestion method or component")
+        logging.info("Entered the data ingestion component")
         try:
-            df = pd.read_csv('notebook\data\stud.csv')
-            logging.info('Read the dataset')
+            if not os.path.isdir(self.ingestion_config.raw_data_path):
+                logging.info('Read the dataset')
+                dataset = load_dataset("conv_ai_2")
+                os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path), exist_ok=True)
+                dataset['train'].save_to_disk(self.ingestion_config.raw_data_path)
+                logging.info("Ingestion of the data is completed")
 
-            os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
-
-            df.to_csv(self.ingestion_config.raw_data_path, index=False, header=True)
-
-            logging.info("Train test split initiated")
-            #train_set, test_set = train_test_split(df, test_size=0.2, random_state=42)
-            #train_set.to_csv(self.ingestion_config.train_data_path, index=False, header=True)
-
-            logging.info("Ingestion of the data iss completed")
-
-            return (
-                self.ingestion_config.train_data_path
-            )
+                return (
+                    self.ingestion_config.raw_data_path
+                )
+            else:
+                logging.info("Dataset already exists.")
         except Exception as e:
             raise CustomException(e, sys)
-
-
-if __name__ == "__main__":
-    obj = DataIngestion()
-    train_data, test_data = obj.initiate_data_ingestion()
