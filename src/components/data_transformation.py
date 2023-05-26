@@ -21,7 +21,7 @@ class DataTransformation:
             dialog_list = extract_dialogs(dataset)
             logging.info("Dialogs extracted from the dataset.")
             padded_dialogs = add_tokens_to_dialogs(dialog_list)
-            return train_list
+            return padded_dialogs
 
 
         except Exception as e:
