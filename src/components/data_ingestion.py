@@ -25,11 +25,11 @@ class DataIngestion:
                 os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path), exist_ok=True)
                 dataset['train'].save_to_disk(self.ingestion_config.raw_data_path)
                 logging.info("Ingestion of the data is completed")
-
-                return (
-                    self.ingestion_config.raw_data_path
-                )
             else:
                 logging.info("Dataset already exists.")
+
+            return (
+                self.ingestion_config.raw_data_path
+            )
         except Exception as e:
             raise CustomException(e, sys)
