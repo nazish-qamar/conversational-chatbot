@@ -7,6 +7,7 @@ from dataclasses import dataclass
 
 from src.exception import CustomException
 from src.logger import logging
+from src.utils import infer_tokenizer_len
 
 
 @dataclass
@@ -34,11 +35,7 @@ class TokenizerModel:
                 self.save_tokenizer(tokenizer)
             else:
                 logging.info("Skipping tokenizer processing as tokenizer already exists")
-                added_tokens_file = self.model_trainer_config.tokenizer_path+"/added_tokens.json"
-                with open(added_tokens_file, 'r') as f:
-                    data = json.load(f)
-
-                tokenizer_len = max(data.values()) + 1
+                tokenizer_len = infer_tokenizer_len(self.model_trainer_config.tokenizer_path)
 
         except Exception as e:
             raise CustomException(e, sys)

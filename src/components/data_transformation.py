@@ -9,9 +9,9 @@ from src.logger import logging
 from src.utils import extract_dialogs, add_tokens_to_dialogs
 
 
-class DataTransformation:
+class DataTransformation():
     def __init__(self):
-        self.train_path = ""
+        self.train_path: str = ""
 
     def initiate_data_transformation(self, train_path):
         self.train_path = train_path
