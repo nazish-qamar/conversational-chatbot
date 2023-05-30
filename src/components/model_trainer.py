@@ -33,7 +33,8 @@ class ModelTrainer:
 
         try:
             self.model = GPT2LMHeadModel.from_pretrained("gpt2")
-            self.model.resize_token_embeddings(self.tokenizer_len ) #need to resize as we modified the tokenizer
+            # need to resize as we modified the tokenizer
+            self.model.resize_token_embeddings(self.tokenizer_len)
             self.model = self.model.to(self.device)
             print(self.device)
             self.model.train()
@@ -58,19 +59,23 @@ class ModelTrainer:
         else:
             self.model.load_state_dict(torch.load(self.model_trainer_config.trained_model_file_path))
 
-    def infer(self,inp):
-        if self.model == None:
+    def infer(self, inp):
+        if self.model is None:
             self.model = GPT2LMHeadModel.from_pretrained("gpt2")
+            # need to resize as we modified the tokenizer
             self.model.resize_token_embeddings(
                 infer_tokenizer_len(self.model_trainer_config.tokenizer_model_file_path)
-            ) #need to resize as we modified the tokenizer
-            self.model.load_state_dict(torch.load(self.model_trainer_config.trained_model_file_path, map_location=torch.device('cpu')))
+            )
+            self.model.load_state_dict(torch.load(self.model_trainer_config.trained_model_file_path))
+            # if device changed after training, use-
+            # self.model.load_state_dict(torch.load(self.model_trainer_config.trained_model_file_path,
+            #                                      map_location=torch.device('cpu')))
         tokenizer = GPT2Tokenizer.from_pretrained(self.model_trainer_config.tokenizer_model_file_path)
         inp = "<startofstring>"+inp+" bot: "
         inp = tokenizer(inp, return_tensors="pt")
         X = inp["input_ids"].to(self.device)
         a = inp["attention_mask"].to(self.device)
-        output = self.model.generate(X, attention_mask=a, pad_token_id=tokenizer.eos_token_id, max_length= 20)
+        output = self.model.generate(X, attention_mask=a, pad_token_id=tokenizer.eos_token_id, max_length=20)
         output = tokenizer.decode(output[0])
 
         return process_output(output)

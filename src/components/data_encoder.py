@@ -18,10 +18,11 @@ class DataEncoder(Dataset):
         self.train_data = None
         self.train_data = train_data
         logging.info("Inside encoder.")
-        #load tokenizer
+
         try:
             tokenizer = GPT2Tokenizer.from_pretrained(self.encoder_config.tokenizer_model_file_path)
-            self.X_encoded = tokenizer(self.train_data, max_length= 40, truncation=True, padding="max_length", return_tensors="pt")
+            self.X_encoded = tokenizer(self.train_data, max_length=40, truncation=True,
+                                       padding="max_length", return_tensors="pt")
             self.input_ids = self.X_encoded['input_ids']
             self.attention_mask = self.X_encoded['attention_mask']
 
@@ -31,6 +32,5 @@ class DataEncoder(Dataset):
     def __len__(self):
         return len(self.train_data)
 
-
     def __getitem__(self, idx):
-        return (self.input_ids[idx], self.attention_mask[idx])
+        return self.input_ids[idx], self.attention_mask[idx]
