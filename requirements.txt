@@ -2,3 +2,5 @@ datasets
 transformers
 torch
 flask
+tqdm
+-e .
