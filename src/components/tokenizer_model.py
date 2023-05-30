@@ -1,6 +1,5 @@
 import os
 import sys
-import json
 
 from transformers import GPT2Tokenizer
 from dataclasses import dataclass
@@ -16,7 +15,8 @@ class TokenizerModelConfig:
 
 
 class TokenizerModel:
-    def __init__(self):
+    def __init__(self, token_config):
+        self.token_config = token_config
         self.model_trainer_config = TokenizerModelConfig()
 
     def initiate_tokenizer_model(self):
@@ -27,10 +27,10 @@ class TokenizerModel:
                 tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
                 tokenizer.add_special_tokens({
                     "pad_token": "<pad>",
-                    "bos_token": "<startofstring>",
-                    "eos_token": "<endofstring>"
+                    "bos_token": self.token_config['start_token'],
+                    "eos_token": self.token_config['end_token']
                 })
-                tokenizer.add_tokens(["<bot>:"])
+                tokenizer.add_tokens([self.token_config['bot_token'] + ":"])
                 tokenizer_len = len(tokenizer)
                 self.save_tokenizer(tokenizer)
             else:
@@ -41,7 +41,6 @@ class TokenizerModel:
             raise CustomException(e, sys)
 
         return tokenizer_len
-
 
     def save_tokenizer(self, tokenizer):
         try:
