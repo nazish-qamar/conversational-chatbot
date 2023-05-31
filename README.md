@@ -1,5 +1,5 @@
 # conversational-chatbot
-## A chatbot rest API fine-tuned on GPT2 pretrained model and deployed as a Flask RESTful API.
+## A chatbot application fine-tuned on GPT2 pretrained model and deployed as a Flask RESTful API.
 ### Dataset: Conv_ai_2 (https://huggingface.co/datasets/conv_ai_2, last accessed on May 29th, 2023) 
 
 ## To run train pipeline for training a new model:
