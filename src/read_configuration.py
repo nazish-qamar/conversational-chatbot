@@ -14,7 +14,7 @@ class Configurations:
 
 
 # testing
-print(Configurations().read_config()['start_token'])
+#print(Configurations().read_config()['start_token'])
 
 """
 config.add_section('new_section')
